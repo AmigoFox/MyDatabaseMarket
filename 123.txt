@@ -1,0 +1,65 @@
+Идеи для личного кабинета (без дашборда)
+
+Профиль пользователя:
+Просмотр и редактирование: логин, email, пароль.
+История активности: даты расчётов и заказов.
+
+
+Список заказов:
+Таблица: тип БД, размер (GB), IOPS, стоимость, дата заказа, статус (активна/удалена).
+Общая ежемесячная стоимость всех БД.
+Кнопки: редактировать конфигурацию, удалить заказ.
+
+
+Платежи:
+История платежей: сумма, дата, статус.
+Итоговая сумма к оплате (заглушка для пет-проекта).
+
+
+Дополнительно:
+Выход из аккаунта.
+
+
+Почему MVC для личного кабинета?
+
+Подходит для данных из БД: MVC идеален для загрузки и отображения заказов из SQLite через контроллеры и представления.
+Простота управления: Таблицы заказов, формы редактирования и кнопки легко реализовать с помощью Razor Views.
+Интеграция с авторизацией: ASP.NET Identity отлично работает с MVC для управления пользователями и их данными.
+Разделение с Blazor: Поскольку калькулятор на Blazor, MVC для кабинета демонстрирует использование разных подходов.
+
+
+
+Структура БД для личного кабинета (SQLite)
+
+1. Таблица Users (пользователи)
+
+Id — INTEGER PRIMARY KEY AUTOINCREMENT (уникальный идентификатор пользователя).
+Login — TEXT NOT NULL UNIQUE (логин, уникальный).
+Email — TEXT NOT NULL UNIQUE (почта, уникальная).
+PasswordHash — TEXT NOT NULL (хэш пароля).
+RegistrationDate — DATETIME NOT NULL (дата регистрации аккаунта).
+
+2. Таблица Orders (заказы баз данных)
+
+Id — INTEGER PRIMARY KEY AUTOINCREMENT (уникальный идентификатор заказа).
+UserId — INTEGER NOT NULL (FK → Users.Id).
+DatabaseType — TEXT NOT NULL (тип базы данных: PostgreSQL, MySQL и т.д.).
+SizeGB — INTEGER NOT NULL (размер БД в гигабайтах).
+IOPS — INTEGER NOT NULL (количество операций ввода-вывода).
+StorageType — TEXT NOT NULL (тип накопителя: HDD / SSD).
+Country — TEXT NOT NULL (страна размещения сервера: RU, US, DE и т.д.).
+PriceUSD — REAL NOT NULL (стоимость заказа в долларах).
+PriceRUB — REAL NOT NULL (стоимость заказа в рублях).
+OrderDate — DATETIME NOT NULL (дата создания заказа).
+Status — TEXT NOT NULL (статус заказа: Active / Deleted).
+
+3. Таблица Payments (платежи)
+
+Id — INTEGER PRIMARY KEY AUTOINCREMENT (уникальный идентификатор платежа).
+UserId — INTEGER NOT NULL (FK → Users.Id).
+AmountUSD — REAL NOT NULL (сумма платежа в долларах).
+AmountRUB — REAL NOT NULL (сумма платежа в рублях).
+PaymentDate — DATETIME NOT NULL (дата платежа).
+Status — TEXT NOT NULL (статус платежа: Paid / Pending / Failed).
+
+В SQLite внешний ключ (FK) работает, только если включить поддержку: PRAGMA foreign_keys = ON;

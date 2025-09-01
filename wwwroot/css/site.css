@@ -1,0 +1,89 @@
+.welcome-container {
+    padding: 40px;
+}
+
+h1.display-4 {
+    color: #007bff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.card-img-top {
+    width: 100%;
+    padding: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #0056b3;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.container {
+    max-width: 1000px;
+}
+
+.row {
+    justify-content: center;
+}
+
+.col-md-6 {
+    padding: 15px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Магазин Баз Данных - Приветствие";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p class="lead">Добро пожаловать в онлайн-магазин баз данных!</p>
+    <p>Выберите базу данных для вашего проекта и настройте её параметры.</p>
+</div>
+
+<div class="container mt-4">
+    <h2 class="text-center">Популярные базы данных</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/MySQL.png" class="card-img-top" alt="MySQL Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">MySQL</h5>
+                    <p class="card-text">Реляционная БД для веб-приложений.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/PostgreSQL.png" class="card-img-top" alt="PostgreSQL Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">PostgreSQL</h5>
+                    <p class="card-text">Мощная реляционная БД с JSON-поддержкой.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/Mongodb.png" class="card-img-top" alt="MongoDB Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">MongoDB</h5>
+                    <p class="card-text">NoSQL для гибких данных.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/Redis.png" class="card-img-top" alt="Redis Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Redis</h5>
+                    <p class="card-text">Кэширование и высокая скорость.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/SQLite.jpg" class="card-img-top" alt="SQLite Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">SQLite</h5>
+                    <p class="card-text">Лёгкая БД для локального использования.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/MicrosoftSqlServer.png" class="card-img-top" alt="Microsoft SQL Server Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Microsoft SQL Server</h5>
+                    <p class="card-text">Корпоративная реляционная БД.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/Cassandra.png" class="card-img-top" alt="Cassandra Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cassandra</h5>
+                    <p class="card-text">NoSQL для больших данных.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/OracleDB.jpg" class="card-img-top" alt="Oracle Database Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Oracle Database</h5>
+                    <p class="card-text">Предприятие-уровень реляционная БД.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/image/MarialDB.png"  class="card-img-top" alt="MariaDB Logo" style="max-height: 150px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">MariaDB</h5>
+                    <p class="card-text">Филиал MySQL с открытым кодом.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">[Старая БД]</h5>
+                    <p class="card-text">Устаревшая реляционная БД (для тебя).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-center mt-4">
+        Хотите рассчитать параметры и стоимость?
+        <a href="/calculator" class="btn btn-primary">Перейти к калькулятору</a>
+    </p>
+</div>
