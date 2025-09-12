@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MyDatabaseMarket.Database.Payment>
+@{
+    ViewData["Title"] = "Мои платежи";
+}
+<div class="mt-3">
+    <a asp-action="Index" asp-controller="Account" class="btn btn-secondary">
+        ← Назад в личный кабинет
+    </a>
+</div>
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Дата создания заказа</th>
+            <th>Сумма (USD)</th>
+            <th>Сумма (RUB)</th>
+            <th>Статус</th>
+            <th>Дата следующего платежа</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pay in Model)
+        {
+            <tr>
+                <td>@pay.PaymentDate</td>
+                <td>@pay.AmountUSD</td>
+                <td>@pay.AmountRUB</td>
+                <td>@pay.Status</td>
+                <td>@pay.NextPaymentDate</td>
+                <td>
+                    @if (pay.Status != "Оплачен")
+                    {
+                        <form asp-action="Pay" asp-controller="Account" method="post">
+                            <input type="hidden" name="id" value="@pay.Id" />
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Оплатить
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success">✅ Оплачен</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

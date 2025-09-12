@@ -2,13 +2,17 @@
 @using Microsoft.AspNetCore.Components.Web
 @using MyDatabaseMarket.Shared
 
-<Router AppAssembly="@typeof(Program).Assembly">
+<CascadingAuthenticationState>
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="@typeof(MainLayout)" />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
+        <PageTitle>Not found 404</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <h3>Страница не найдена</h3>
+            <p role="alert">Извините, страница не найдена.</p>
         </LayoutView>
     </NotFound>
 </Router>
+</CascadingAuthenticationState>
