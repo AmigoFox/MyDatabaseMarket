@@ -209,49 +209,111 @@
             showMessage = true;
         }
 
+        if (int.TryParse(query["id"], out int orderId))
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order != null)
+            {
+                
+                SelectedType = order.DatabaseType;
+                SizeGB = order.SizeGB;
+                StorageType = order.StorageType;
+                SelectedIOPS = order.IOPS;
+                Scalability = order.Scalability;
+
+                RussiaSelected = order.Country.Contains("Россия");
+                KazakhstanSelected = order.Country.Contains("Казахстан");
+                ChinaSelected = order.Country.Contains("Китай");
+                UzbekistanSelected = order.Country.Contains("Узбекистан");
+                BelarusSelected = order.Country.Contains("Беларусь");
+
+                UpdatePrice();
+
+                EditingOrderId = order.Id;
+            }
+        }
     }
+
+    private int? EditingOrderId = null;
+
+
+
+
+
+
+
 
     private async Task SaveOrder()
     {
         var authState = await AuthStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-
         if (!user.Identity?.IsAuthenticated ?? true)
             return;
 
         int userId = int.Parse(user.Claims.First(c => c.Type == "UserId").Value);
 
-        var order = new MyDatabaseMarket.Database.Order
+        if (EditingOrderId.HasValue)
         {
-            UserId = userId,
-            DatabaseType = SelectedType,
-            SizeGB = SizeGB,
-            IOPS = SelectedIOPS,
-            StorageType = StorageType,
-            Scalability = Scalability,
-            Country = string.Join(", ", GetSelectedCountries()),
-            PriceUSD = Math.Round(PriceInUsd, 2),
-            PriceRUB = Math.Round(PriceInRub, 2),
-            OrderDate = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
-            Status = "Ожидает оплаты"
-        };
+            var order = _context.Orders.FirstOrDefault(o => o.Id == EditingOrderId.Value);
+            if (order != null)
+            {
+                order.DatabaseType = SelectedType;
+                order.SizeGB = SizeGB;
+                order.IOPS = SelectedIOPS;
+                order.StorageType = StorageType;
+                order.Scalability = Scalability;
+                order.Country = string.Join(", ", GetSelectedCountries());
+                order.PriceUSD = Math.Round(PriceInUsd, 2);
+                order.PriceRUB = Math.Round(PriceInRub, 2);
 
-        _context.Orders.Add(order);
-        await _context.SaveChangesAsync(); // тут order.Id уже сгенерирован
+                _context.Orders.Update(order);
 
-        var payment = new MyDatabaseMarket.Database.Payment
+                var payment = _context.Payments.FirstOrDefault(p => p.OrderId == order.Id);
+                if (payment != null)
+                {
+                    payment.AmountUSD = order.PriceUSD;
+                    payment.AmountRUB = order.PriceRUB;
+                    payment.Status = "Ожидает оплаты";
+                    _context.Payments.Update(payment);
+                }
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        else
         {
-            UserId = userId,
-            OrderId = order.Id, //ВАЖНО!
-            PaymentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-            AmountUSD = order.PriceUSD,
-            AmountRUB = order.PriceRUB,
-            Status = "Ожидает оплаты",
-            NextPaymentDate = "--"
-        };
+            var order = new MyDatabaseMarket.Database.Order
+            {
+                UserId = userId,
+                DatabaseType = SelectedType,
+                SizeGB = SizeGB,
+                IOPS = SelectedIOPS,
+                StorageType = StorageType,
+                Scalability = Scalability,
+                Country = string.Join(", ", GetSelectedCountries()),
+                PriceUSD = Math.Round(PriceInUsd, 2),
+                PriceRUB = Math.Round(PriceInRub, 2),
+                OrderDate = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
+                Status = "Ожидает оплаты"
+            };
 
-        _context.Payments.Add(payment);
-        await _context.SaveChangesAsync();
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+
+            var payment = new MyDatabaseMarket.Database.Payment
+            {
+                UserId = userId,
+                OrderId = order.Id,
+                PaymentDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                AmountUSD = order.PriceUSD,
+                AmountRUB = order.PriceRUB,
+                Status = "Ожидает оплаты",
+                NextPaymentDate = "--"
+            };
+
+            _context.Payments.Add(payment);
+            await _context.SaveChangesAsync();
+        }
 
         Navigation.NavigateTo("/Calculator?saved=true", forceLoad: true);
     }

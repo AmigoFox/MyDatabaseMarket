@@ -54,11 +54,39 @@ namespace MyDatabaseMarket.Controllers
             return RedirectToAction("Payments");
         }
 
+        [HttpPost]
+        public IActionResult OrderDelete(int id)
+        {
+            var payment = _context.Payments.FirstOrDefault(p => p.Id == id);
 
+            if (payment != null)
+            {
+                // сначала удаляем сам заказ
+                var order = _context.Orders.FirstOrDefault(o => o.Id == payment.OrderId);
+                if (order != null)
+                {
+                    _context.Orders.Remove(order);
+                }
 
+                // потом удаляем платеж
+                _context.Payments.Remove(payment);
 
+                _context.SaveChanges();
+            }
 
+            return RedirectToAction("Payments");
+        }
 
+        
+        [HttpPost]
+        public IActionResult changeorder(int id)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+            if (order == null)
+                return NotFound();
+
+            return RedirectToAction("Calculator", new { id = order.Id });
+        }
 
 
         [HttpGet]

@@ -23,6 +23,7 @@
             <th>Цена (USD)</th>
             <th>Цена (RUB)</th>
             <th>Статус</th>
+            <th>Изменить конфигурацию</th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +39,11 @@
                 <td>@order.PriceUSD</td>
                 <td>@order.PriceRUB</td>
                 <td>@order.Status</td>
+
+                <td>
+                    <a href="/Calculator?id=@order.Id" class="btn btn-warning">Изменить</a>
+                </td>
+
             </tr>
         }
     </tbody>

@@ -18,6 +18,7 @@
             <th>Сумма (RUB)</th>
             <th>Статус</th>
             <th>Дата следующего платежа</th>
+            <th>Удалить конфигурацию</th>
             <th>Действие</th>
         </tr>
     </thead>
@@ -30,6 +31,16 @@
                 <td>@pay.AmountRUB</td>
                 <td>@pay.Status</td>
                 <td>@pay.NextPaymentDate</td>
+                <td>
+                    <form asp-action="OrderDelete" asp-controller="Account" method="post">
+                        <input type="hidden" name="id" value="@pay.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+
+
                 <td>
                     @if (pay.Status != "Оплачен")
                     {
