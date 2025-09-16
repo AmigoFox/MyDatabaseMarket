@@ -27,20 +27,19 @@ MyDatabaseMarket показывает мой опыт в фулстек-разр
 Этот проект можно развивать в сторону полноценного маркетплейса с платежными системами и аналитикой.
 
 
+### 🗄 Каталог баз данных
+![Database Catalog](screenshots/Database_catalog.jpg)
 
-### 🔐 Authentication
+### 🔐 Вход/Регистрация аккаунта
 ![Login](screenshots/Login_to_your_personal_account.jpg)  
 ![Register](screenshots/Register_an_account.jpg)
 
-### 👤 Personal Account
+### 👤 Личный кабинет
 ![Personal Account](screenshots/personal_account.jpg)  
 ![My Orders](screenshots/my_orders.jpg)  
 ![Payments](screenshots/payments.jpg)
 
-### 🧮 Calculator
+### 🧮 Калькулятор
 ![Calculator](screenshots/calculator.jpg)  
 ![Calculator in Use](screenshots/Calculator_work.jpg)  
 ![Advanced Calculator](screenshots/Calculator_work2.jpg)
-
-### 🗄 Database
-![Database Catalog](screenshots/Database_catalog.jpg)
